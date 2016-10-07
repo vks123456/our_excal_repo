@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "499168318156",
+    "firebase_url": "https://selleasy-20901.firebaseio.com",
+    "project_id": "selleasy-20901",
+    "storage_bucket": "selleasy-20901.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499168318156:android:f66bba2453b33ce5",
+        "android_client_info": {
+          "package_name": "gawds.nitkkr.com.selleasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499168318156-6a7ie5mmbkppm9unf8sgo1r6hdfd4l0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmUPtHZ2Wtu4Up0P6ISH9o_N0K88t19ag"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
