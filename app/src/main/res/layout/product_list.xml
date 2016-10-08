@@ -17,7 +17,7 @@
         android:id="@+id/no_item_msg"
         android:layout_height="30dp"
         android:text="No Item"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:gravity="center"
         android:layout_centerVertical="true"/>
 </RelativeLayout>

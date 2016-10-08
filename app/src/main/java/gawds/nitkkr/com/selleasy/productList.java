@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,11 +18,12 @@ import java.util.ArrayList;
 public class productList extends AppCompatActivity {
     String id;
     RecyclerView recyclerView;
-
+    public TextView item_msg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_list);
+         item_msg=(TextView)findViewById(R.id.no_item_msg);
         recyclerView = (RecyclerView) findViewById(R.id.buy_products_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -75,11 +78,17 @@ public void JSON()
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                if(arr.size()==0)
+                {
+                    recyclerView.setVisibility(View.INVISIBLE);
+                }
+                else{
                 buyAdapter buyAdapter = new buyAdapter(c, arr);
                 recyclerView.setAdapter(buyAdapter);
+                    item_msg.setVisibility(View.INVISIBLE);
             }
         }
-    }
+    }}
     new JSONTask().execute("http://www.almerston.com/excalibur/product.php?category='"+id+"'");
 }
 }
