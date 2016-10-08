@@ -4,8 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-<uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
@@ -20,57 +21,61 @@
             </intent-filter>
         </activity>
         <activity android:name=".login" />
-        <activity android:name=".Manage"
+        <activity
+            android:name=".Manage"
             android:screenOrientation="sensorPortrait">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="gawds.nitkkr.com.selleasy.Manage" />
-
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="gawds.nitkkr.com.selleasy.Manage" />
         </activity>
-        <activity android:name=".Manage_item"
+        <activity
+            android:name=".Manage_item"
             android:screenOrientation="sensorPortrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gawds.nitkkr.com.selleasy.Manage_item" />
-
         </activity>
-        <activity android:name=".product_details"
+        <activity
+            android:name=".product_details"
             android:screenOrientation="sensorPortrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gawds.nitkkr.com.selleasy.product_details" />
-
         </activity>
-        <activity android:name=".Sell"
+        <activity
+            android:name=".Sell"
             android:screenOrientation="sensorPortrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gawds.nitkkr.com.selleasy.Sell" />
-
         </activity>
-        <activity android:name=".Buy"
+        <activity
+            android:name=".Buy"
             android:screenOrientation="sensorPortrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gawds.nitkkr.com.selleasy.Buy" />
-
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".About_us"
+        <activity
+            android:name=".About_us"
             android:screenOrientation="sensorPortrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gawds.nitkkr.com.selleasy.About_us" />
-
         </activity>
-        <activity android:name=".productList"
+        <activity
+            android:name=".productList"
             android:screenOrientation="sensorPortrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gawds.nitkkr.com.selleasy.productList" />
-
         </activity>
-
+        <activity android:name=".otpVerify"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

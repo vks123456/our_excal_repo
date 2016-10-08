@@ -9,6 +9,15 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         android:id="@+id/buy_products_list">
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_width="400dp"
+        android:id="@+id/no_item_msg"
+        android:layout_height="30dp"
+        android:text="No Item"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:layout_centerVertical="true"/>
 </RelativeLayout>

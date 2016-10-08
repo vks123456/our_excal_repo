@@ -56,7 +56,7 @@
         android:layout_toRightOf="@+id/textView3"
         android:background="#CCCCCC"
         android:ems="10"
-        android:inputType="textPersonName" >
+        android:inputType="numberDecimal" >
 
         <requestFocus />
     </EditText>
@@ -106,7 +106,7 @@
         android:layout_toRightOf="@+id/textView5"
         android:background="#CCCCCC"
         android:ems="10"
-        android:inputType="textPersonName" >
+        android:inputType="phone" >
 
         <requestFocus />
     </EditText>

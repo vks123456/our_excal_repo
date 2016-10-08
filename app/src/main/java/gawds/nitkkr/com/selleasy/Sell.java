@@ -2,6 +2,7 @@ package gawds.nitkkr.com.selleasy;
 
 import android.app.AlertDialog;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
 import android.content.Intent;
@@ -56,6 +57,7 @@ import java.net.ProtocolException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -75,6 +77,10 @@ import com.kosalgeek.android.photoutil.ImageLoader;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.EachExceptionsHandler;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static gawds.nitkkr.com.selleasy.login.personEmail;
 
@@ -189,79 +195,59 @@ public class Sell extends Activity {
 
                 upload.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        map.put("pname",spname.getText().toString());
-                        map.put("price",spprice.getText().toString());
-                        map.put("name",sseller.getText().toString());
+                        map.put("pname", spname.getText().toString());
+                        map.put("price", spprice.getText().toString());
+                        map.put("name", sseller.getText().toString());
                         map.put("contact", sphone.getText().toString());
-                        map.put("category",spin_cat.getSelectedItem().toString());
-                        map.put("username",email);
+                        map.put("category", spin_cat.getSelectedItem().toString());
+                        map.put("username", email);
+                        if (selectedphoto == "" || selectedphoto == null || map.get("pname") == "" || map.get("price") == "" || map.get("name") == "" || map.get("contact") == "" || map.get("username") == "" || map.get("contact").length() != 10) {
+                            Toast.makeText(Sell.this, "Invalid Details", Toast.LENGTH_SHORT).show();
+                        } else {
 
-                        if(selectedphoto=="" || selectedphoto==null)
-                        {
-                            Toast.makeText(Sell.this,"Invalid Image",Toast.LENGTH_SHORT).show();
-                        }
-                        try {
-
-                            Bitmap bitmap=ImageLoader.init().from(selectedphoto).requestSize(100,100).getBitmap();
-                            String encodedImage= ImageBase64.encode(bitmap);
-                            Log.d("Data ",map.get("pname")+" "+map.get("price")+" "+map.get("name")+" "+map.get("contact")+" "+map.get("category")+" ");
-                            map.put("image",encodedImage);
-                            PostResponseAsyncTask task= new PostResponseAsyncTask(Sell.this, map, new AsyncResponse() {
+                            final ProgressDialog pd = new ProgressDialog(Sell.this, ProgressDialog.STYLE_SPINNER);
+                            pd.show();
+                            final httpRequest request = new httpRequest();
+                            final int otp = new Random().nextInt(9000) + 1000;
+                            Thread thread = new Thread(new Runnable() {
                                 @Override
-                                public void processFinish(String s) {
-                                    if(true)
+                                public void run() {
+                                    String json = request.SendGetRequest("http://www.almerston.com/excalibur/otp.php?otp=" + otp + "&contact=" + map.get("contact"));
+                                    //Error handling for message sent or not 9pm
+                                    try
+
                                     {
-                                        Log.d("Error ",s);
-                                        Toast.makeText(Sell.this,"Success "+s,Toast.LENGTH_SHORT).show();
-                                        Intent i=new Intent(Sell.this,Manage.class);
-                                        startActivity(i);
+                                        JSONObject ob = null;
+                                        ob = new JSONObject(json);
+                                        JSONArray array = ob.getJSONArray("errors");
+                                        JSONObject newob = array.getJSONObject(0);
+                                        String res = newob.getString("status");
+                                        if (!res.contains("faliure")) {
+                                            otpVerify.checkOtp = otp;
+                                            otpVerify.map = map;
+                                            otpVerify.selectedphoto = selectedphoto;
+                                            pd.dismiss();
+                                            startActivity(new Intent(Sell.this, otpVerify.class));
+
+                                        } else {
+                                            pd.dismiss();
+                                            Toast.makeText(Sell.this,"Unable to upload! Try Again Later!",Toast.LENGTH_SHORT).show();
+                                            Log.d("dfsnfj", res);
+                                            //Unable to send otp// Try again later!
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    else
-                                    {
-//                                faliiure
-                                    }
+
+
                                 }
+
                             });
-                            try {
-                                task.execute("http://www.almerston.com/excalibur/upload_image.php");
-                            }
-                            catch (Exception e)
-                            {
-                                task.execute("http://www.almerston.com/excalibur/upload_image.php");
-
-                            }
-                            task.setEachExceptionsHandler(new EachExceptionsHandler() {
-                                @Override
-                                public void handleIOException(IOException e) {
-                                    Toast.makeText(getApplicationContext(),"Server Connection Faliure",Toast.LENGTH_SHORT).show();
-                                }
-
-                                @Override
-                                public void handleMalformedURLException(MalformedURLException e) {
-
-
-                                }
-                                @Override
-                                public void handleProtocolException(ProtocolException e) {
-
-                                }
-
-                                @Override
-                                public void handleUnsupportedEncodingException(UnsupportedEncodingException e) {
-
-                                }
-                            });
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
+                            thread.start();
+//
                         }
-                    }
-                });
-
-            }
-
-
-
-
+                    }});
+    }
 
 
     @Override
