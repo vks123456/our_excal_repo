@@ -75,7 +75,6 @@ public class otpVerify extends AppCompatActivity {
                                     task.execute("http://www.almerston.com/excalibur/upload_image.php");
                                 } catch (Exception e) {
                                     task.execute("http://www.almerston.com/excalibur/upload_image.php");
-
                                 }
                                 task.setEachExceptionsHandler(new EachExceptionsHandler() {
                                     @Override

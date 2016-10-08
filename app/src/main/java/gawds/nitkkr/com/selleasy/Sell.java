@@ -138,7 +138,7 @@ public class Sell extends Activity {
 
         super.onCreate(savedInstanceState);
         SharedPreferences username = getSharedPreferences("username", MODE_PRIVATE);
-        email= username.getString("email", null);
+        email= username.getString("email", "sahil071");
         displayname=username.getString("displayname",null);
         imgView=(ImageView) findViewById(R.id.imgView);
         spname= (EditText) findViewById(R.id.spname);
@@ -208,7 +208,7 @@ public class Sell extends Activity {
                             final ProgressDialog pd = new ProgressDialog(Sell.this, ProgressDialog.STYLE_SPINNER);
                             pd.show();
                             final httpRequest request = new httpRequest();
-                            final int otp = new Random().nextInt(9000) + 1000;
+                            final int otp =1000; //new Random().nextInt(9000) + 1000;
                             Thread thread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
