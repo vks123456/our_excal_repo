@@ -25,10 +25,11 @@ import gawds.nitkkr.com.selleasy.R;
 public class login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
 
+
     TextView tv_username;
     GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
-
+    public static  String personEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +105,12 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
             GoogleSignInAccount acct = result.getSignInAccount();
             tv_username.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             //Log.d("kjdkjxkf",acct.getDisplayName());
-            //String personEmail = acct.getEmail();
+             personEmail = acct.getEmail();
+                String name=acct.getDisplayName();
+            SharedPreferences.Editor editor = getSharedPreferences("username", MODE_PRIVATE).edit();
+            editor.putString("email", personEmail);
+            editor.putString("displayname",name);
+            editor.commit();
             //login.gapi= mGoogleApiClient;
 //            mjnn
             Intent intent = new Intent(login.this,MainActivity.class);

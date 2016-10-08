@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 
 import android.graphics.Bitmap;
@@ -75,6 +76,8 @@ import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.EachExceptionsHandler;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
+import static gawds.nitkkr.com.selleasy.login.personEmail;
+
 
 public class Sell extends Activity {
 
@@ -117,6 +120,7 @@ public class Sell extends Activity {
     GalleryPhoto galleryPhoto;
     final  int CAMERA_REQUEST=1;
     final int GALLERY_REQUEST=2;
+    String email,displayname;
     String selectedphoto;
 
     @Override
@@ -127,6 +131,9 @@ public class Sell extends Activity {
         setContentView(R.layout.activity_sell);
 
         super.onCreate(savedInstanceState);
+        SharedPreferences username = getSharedPreferences("username", MODE_PRIVATE);
+        email= username.getString("email", null);
+        displayname=username.getString("displayname",null);
         imgView=(ImageView) findViewById(R.id.imgView);
         spname= (EditText) findViewById(R.id.spname);
         spprice=(EditText) findViewById(R.id.spprice);
@@ -173,56 +180,22 @@ public class Sell extends Activity {
             }
 
         });
-        button = (Button) findViewById(R.id.buttonAlert);
 
-        // add button listener
-        button.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
-
-                // set title
-                alertDialogBuilder.setTitle("Confirm Your Detail");
-
-                // set dialog message
-                alertDialogBuilder
-                        //.setMessage("")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // if this button is clicked, close
-                                // current activity
-                               // MainActivity.this.finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                // show it
-                alertDialog.show();
                 final HashMap<String,String>map=new HashMap<String, String>();
-                map.put("pname",spname.getText().toString());
-                map.put("price",spprice.getText().toString());
-                map.put("name",sseller.getText().toString());
-                map.put("contact", sphone.getText().toString());
-//                map.put("category");
+
 //                imgView = (ImageView) findViewById(R.id.btnSelectPhoto);
                 upload = (Button) findViewById(R.id.buttonAlert);
 //                cancel = (Button) findViewById(R.id.imgcancelbtn);
 
                 upload.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+                        map.put("pname",spname.getText().toString());
+                        map.put("price",spprice.getText().toString());
+                        map.put("name",sseller.getText().toString());
+                        map.put("contact", sphone.getText().toString());
+                        map.put("category",spin_cat.getSelectedItem().toString());
+                        map.put("username",email);
+
                         if(selectedphoto=="" || selectedphoto==null)
                         {
                             Toast.makeText(Sell.this,"Invalid Image",Toast.LENGTH_SHORT).show();
@@ -231,14 +204,15 @@ public class Sell extends Activity {
 
                             Bitmap bitmap=ImageLoader.init().from(selectedphoto).requestSize(100,100).getBitmap();
                             String encodedImage= ImageBase64.encode(bitmap);
-
+                            Log.d("Data ",map.get("pname")+" "+map.get("price")+" "+map.get("name")+" "+map.get("contact")+" "+map.get("category")+" ");
                             map.put("image",encodedImage);
                             PostResponseAsyncTask task= new PostResponseAsyncTask(Sell.this, map, new AsyncResponse() {
                                 @Override
                                 public void processFinish(String s) {
                                     if(true)
                                     {
-                                        Toast.makeText(Sell.this,"Success",Toast.LENGTH_SHORT).show();
+                                        Log.d("Error ",s);
+                                        Toast.makeText(Sell.this,"Success "+s,Toast.LENGTH_SHORT).show();
                                         Intent i=new Intent(Sell.this,Manage.class);
                                         startActivity(i);
                                     }
@@ -248,7 +222,14 @@ public class Sell extends Activity {
                                     }
                                 }
                             });
-                            task.execute("http://www.almerston.com/excalibur/upload_image.php");
+                            try {
+                                task.execute("http://www.almerston.com/excalibur/upload_image.php");
+                            }
+                            catch (Exception e)
+                            {
+                                task.execute("http://www.almerston.com/excalibur/upload_image.php");
+
+                            }
                             task.setEachExceptionsHandler(new EachExceptionsHandler() {
                                 @Override
                                 public void handleIOException(IOException e) {
@@ -277,8 +258,6 @@ public class Sell extends Activity {
                 });
 
             }
-        });
-    }
 
 
 
