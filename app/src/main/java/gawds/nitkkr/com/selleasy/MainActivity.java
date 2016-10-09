@@ -1,6 +1,7 @@
 package gawds.nitkkr.com.selleasy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -90,8 +91,9 @@ public static GoogleApiClient object;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bundle bundle = getIntent().getExtras();
-        String message = bundle.getString("message");
+//        String message = bundle.getString("message");
 //        String image = bundle.getString("image");
+        String message=getSharedPreferences("username",MODE_PRIVATE).getString("displayname"," ");
         TextView txtView = (TextView) findViewById(R.id.textView9);
        // txtView.setText("You are logged in as " + message);
         init();
@@ -165,8 +167,10 @@ public static GoogleApiClient object;
                 overridePendingTransition(R.anim.activity_push_up_in, R.anim.activity_push_up_out);
                 break;
             case 6:
+                getSharedPreferences("username",MODE_PRIVATE).edit().putInt("loggedIn",0).commit();
+                getSharedPreferences("username",MODE_PRIVATE).edit().putString("email","").commit();
+                getSharedPreferences("username",MODE_PRIVATE).edit().putString("displayname","").commit();
                 final Intent i5 = new Intent(this, login.class);
-                i5.putExtra("message", "BACK");
                 startActivity(i5);
                 //finish();
                 break;

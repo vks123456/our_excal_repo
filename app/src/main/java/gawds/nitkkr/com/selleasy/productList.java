@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -20,6 +22,8 @@ public class productList extends AppCompatActivity {
     String id;
     RecyclerView recyclerView;
     public TextView item_msg;
+    EditText searchq;
+    Button searchb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +32,24 @@ public class productList extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.buy_products_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        searchq=(EditText) findViewById(R.id.search_query);
+        searchb=(Button) findViewById(R.id.search_b);
+        searchb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchClicked();
+            }
+        });
         id = getIntent().getStringExtra("category");
         Log.d("id ",id);
-        JSON();
+        JSON("http://www.almerston.com/excalibur/product.php?category='"+id+"'");
     }
-public void JSON()
+    public void searchClicked()
+    {
+        String query=searchq.getText().toString().toLowerCase();
+        JSON("http://www.almerston.com/excalibur/search.php?pname="+query+"&category="+id);
+    }
+public void JSON(String q)
 {
     final Context c;
     c=this;
@@ -77,7 +94,7 @@ public void JSON()
                     m.setPname(finalobject.getString("pname"));
                     m.setPrice(finalobject.getInt("price"));
                     m.setCategory(finalobject.getString("category"));
-                    m.setContact(finalobject.getInt("contact"));
+                    m.setContact(finalobject.getLong("contact"));
                     m.setImage(finalobject.getString("image"));
                     m.setUsername(finalobject.getString("username"));
                     m.setName(finalobject.getString("name"));
@@ -98,6 +115,6 @@ public void JSON()
             }
         }
     }}
-    new JSONTask().execute("http://www.almerston.com/excalibur/product.php?category='"+id+"'");
+    new JSONTask().execute(q);
 }
 }

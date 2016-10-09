@@ -34,7 +34,7 @@ public class product_details extends AppCompatActivity {
         seller = (TextView) findViewById(R.id.detail_seller_name);
         username = (TextView) findViewById(R.id.detail_username);
         call = (Button) findViewById(R.id.call);
-        addFav = (Button) findViewById(R.id.fav);
+//        addFav = (Button) findViewById(R.id.fav);
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

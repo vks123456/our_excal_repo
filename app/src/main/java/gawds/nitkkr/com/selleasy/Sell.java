@@ -210,7 +210,7 @@ public class Sell extends Activity {
 
                             pd.show();
                             final httpRequest request = new httpRequest();
-                            final int otp =1000; //new Random().nextInt(9000) + 1000;
+                            final int otp =new Random().nextInt(9000) + 1000;
                             Thread thread = new Thread(new Runnable() {
                                 @Override
                                 public void run() {

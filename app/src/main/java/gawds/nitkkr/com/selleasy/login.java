@@ -23,8 +23,23 @@ import com.google.android.gms.common.api.Status;
 import gawds.nitkkr.com.selleasy.R;
 
 public class login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int status = getSharedPreferences("username", MODE_PRIVATE).getInt("loggedIn", 0);
+        if (status == 1) {
+            startActivity(new Intent(login.this,MainActivity.class));
+        }
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        int status = getSharedPreferences("username", MODE_PRIVATE).getInt("loggedIn", 0);
+        if (status == 1) {
 
+        }
+    }
 
     TextView tv_username;
     GoogleApiClient mGoogleApiClient;
@@ -34,6 +49,12 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        int status=getSharedPreferences("username",MODE_PRIVATE).getInt("loggedIn",0);
+        if(status==1)
+        {
+            startActivity(new Intent(login.this,MainActivity.class));
+
+        }
 
         tv_username = (TextView) findViewById(R.id.tv_username);
 
@@ -48,11 +69,7 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
         });
         //findViewById(R.id.btn_logout).setOnClickListener(this);
         Bundle bundle = getIntent().getExtras();
-        String message = bundle.getString("message");
-        if(message.contentEquals("BACK"))
-        {
-
-        }
+//        String message = bundle.getString("message");
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -110,11 +127,12 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
             SharedPreferences.Editor editor = getSharedPreferences("username", MODE_PRIVATE).edit();
             editor.putString("email", personEmail);
             editor.putString("displayname",name);
+            editor.putInt("loggedIn",1);
             editor.commit();
             //login.gapi= mGoogleApiClient;
 //            mjnn
             Intent intent = new Intent(login.this,MainActivity.class);
-
+//
             intent.putExtra("message", acct.getDisplayName());
             //here
             MainActivity.object=mGoogleApiClient;

@@ -1,5 +1,7 @@
 package gawds.nitkkr.com.selleasy;
 
+import android.util.Log;
+
 import java.security.Timestamp;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ public class models {
     int price;
     String category;
     String name;
-    int contact;
+    long contact;
     String image;
     String username;
     Long time;
@@ -34,7 +36,7 @@ public class models {
         this.name = name;
     }
 
-    public void setContact(int contact) {
+    public void setContact(Long contact) {
         this.contact = contact;
     }
 
@@ -66,7 +68,7 @@ public class models {
         return name;
     }
 
-    public int getContact() {
+    public long getContact() {
         return contact;
     }
 

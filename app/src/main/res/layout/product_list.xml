@@ -12,15 +12,17 @@
     android:id="@+id/editquery"
     android:minHeight="40dp"
     android:weightSum="100">
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="10"
+        android:id="@+id/search_query"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="90"
+        android:id="@+id/search_b"
         android:background="@drawable/ic_search_black_24dp"
         style="@android:style/Widget.Holo.Button.Borderless"/>
 

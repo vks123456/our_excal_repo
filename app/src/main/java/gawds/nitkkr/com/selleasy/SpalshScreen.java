@@ -20,7 +20,7 @@ public class SpalshScreen extends Activity{
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
-                    Intent intent = new Intent(SpalshScreen.this,MainActivity.class);
+                    Intent intent = new Intent(SpalshScreen.this,login.class);
                     intent.putExtra("message","Message");
                     startActivity(intent);
                 }

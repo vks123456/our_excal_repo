@@ -29,7 +29,7 @@ public class Manage_item extends AppCompatActivity {
         Button delete=(Button)findViewById(R.id.delete_product);
         change_price.setText(""+detailedObject.getPrice());
         change_phone.setText(""+detailedObject.getContact());
-        sname.setText(detailedObject.getName());
+        sname.setText(detailedObject.getPname());
         Glide.with(Manage_item.this).load("http://www.almerston.com/excalibur/images/"+detailedObject.getImage()+".jpeg").diskCacheStrategy(DiskCacheStrategy.ALL).crossFade().into(manage);
         update.setOnClickListener(new View.OnClickListener() {
                                       @Override

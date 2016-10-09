@@ -77,7 +77,7 @@ RecyclerView recyclerView;
                         m.setPname(finalobject.getString("pname"));
                         m.setPrice(finalobject.getInt("price"));
                         m.setCategory(finalobject.getString("category"));
-                        m.setContact(finalobject.getInt("contact"));
+                        m.setContact(finalobject.getLong("contact"));
                         m.setImage(finalobject.getString("image"));
                         m.setUsername(finalobject.getString("username"));
                         m.setName(finalobject.getString("name"));
