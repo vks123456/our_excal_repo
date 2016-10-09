@@ -24,7 +24,7 @@ public class Buy extends AppCompatActivity {
     ListView mListView;
 
     //Elements that will be displayed in android ListView
-    String[] Items = new String[]{"Electronics", "Furniture", "Books/Notes",
+    String[] Items = new String[]{"Electronics ", "Furniture", "Books/Notes",
             "Others"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class Buy extends AppCompatActivity {
                 Intent intent= new Intent(Buy.this,productList.class);
                 switch (itemPosition) {
                     case 0:
-                        intent.putExtra("category","electrical");
+                        intent.putExtra("category","Electronics");
                         startActivity(intent);
                         overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
                         break;
@@ -58,12 +58,12 @@ public class Buy extends AppCompatActivity {
                         overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
                         break;
                     case 2:
-                        intent.putExtra("category","books");
+                        intent.putExtra("category","Books/Notes");
                         startActivity(intent);
                         overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
                         break;
                     case 3:
-                        intent.putExtra("category","others");
+                        intent.putExtra("category","Others");
                         startActivity(intent);
                         overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
                         break;

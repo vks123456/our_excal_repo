@@ -3,6 +3,7 @@ package gawds.nitkkr.com.selleasy;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,8 @@ public class buyAdapter extends RecyclerView.Adapter<buyAdapter.ViewHolder> {
         holder.price.setText(""+arr.get(position).getPrice());
         holder.pname.setText(""+arr.get(position).getPname());
         holder.seller.setText(""+arr.get(position).getName());
-        Glide.with(c).load("http://www.almerston.com/excalibur/images/"+arr.get(position).getImage()).placeholder(R.drawable.buy_icon).crossFade().into(holder.image);
+        Log.d("images ",arr.get(position).getImage()+"\n");
+        Glide.with(c).load("http://www.almerston.com/excalibur/images/"+arr.get(position).getImage()+".jpeg").placeholder(R.mipmap.app_icon).crossFade().into(holder.image);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

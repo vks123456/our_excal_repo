@@ -1,5 +1,6 @@
 package gawds.nitkkr.com.selleasy;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Manage extends AppCompatActivity {
 RecyclerView recyclerView;
@@ -33,16 +36,26 @@ RecyclerView recyclerView;
         class JSONTask extends AsyncTask<String, String, String> {
 
             String JSONString;
+            ProgressDialog pd;
+            @Override
+            protected void onPreExecute() {
+                pd=new ProgressDialog(Manage.this);
+                pd.setMessage("Loading...");
+                pd.show();
+            }
 
             @Override
             protected String doInBackground(String... params) {
                 httpRequest http = new httpRequest();
                 try {
-                    JSONString = http.SendGetRequest(params[0]);
+                    HashMap<String ,String> map=new HashMap<>();
+                    map.put("username",params[1]);
+                    JSONString = http.sendPostRequest(params[0],map);
                     Log.d("JSON",JSONString);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
+                    Log.d("Manage", JSONString);
                     return JSONString;
                 }
             }
@@ -74,12 +87,13 @@ RecyclerView recyclerView;
                     e.printStackTrace();
                 } finally {
                     manageAdapter manageAdapter= new manageAdapter(c, arr);
+                    pd.dismiss();
                     recyclerView.setAdapter(manageAdapter);
                 }
             }
         }
-        String username=getSharedPreferences("username",MODE_PRIVATE).getString("email","sahil070");
-        new JSONTask().execute("http://www.almerston.com/excalibur/manage.php?username='"+username+"'");
+        String username=getSharedPreferences("username",MODE_PRIVATE).getString("email"," ");
+        new JSONTask().execute("http://www.almerston.com/excalibur/manage.php?username",username);
     }
 
     }

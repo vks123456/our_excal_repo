@@ -1,5 +1,6 @@
 package gawds.nitkkr.com.selleasy;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,13 @@ public void JSON()
     class JSONTask extends AsyncTask<String, String, String> {
 
         String JSONString;
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            pd=new ProgressDialog(productList.this);
+            pd.setMessage("Loading...");
+            pd.show();
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -78,6 +86,7 @@ public void JSON()
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                pd.dismiss();
                 if(arr.size()==0)
                 {
                     recyclerView.setVisibility(View.INVISIBLE);

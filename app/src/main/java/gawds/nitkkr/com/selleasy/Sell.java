@@ -151,8 +151,8 @@ public class Sell extends Activity {
         cameraPhoto=new CameraPhoto(getApplicationContext());
         galleryPhoto=new GalleryPhoto(getApplicationContext());
         final List<String> categoies = new ArrayList<String>();
-        categoies.add("Electronic Appliances");
-        categoies.add("Furniture");
+        categoies.add("Electronics");
+        categoies.add("furniture");
         categoies.add("Books/Notes");
         categoies.add("Others");
         spin_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -205,7 +205,9 @@ public class Sell extends Activity {
                             Toast.makeText(Sell.this, "Invalid Details", Toast.LENGTH_SHORT).show();
                         } else {
 
-                            final ProgressDialog pd = new ProgressDialog(Sell.this, ProgressDialog.STYLE_SPINNER);
+                            final ProgressDialog pd = new ProgressDialog(Sell.this ,ProgressDialog.STYLE_SPINNER);
+                            pd.setMessage("Loading...");
+
                             pd.show();
                             final httpRequest request = new httpRequest();
                             final int otp =1000; //new Random().nextInt(9000) + 1000;

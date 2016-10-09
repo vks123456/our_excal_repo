@@ -47,7 +47,7 @@ public class product_details extends AppCompatActivity {
         price.setText(""+detailedObject.getPrice());
         seller.setText(""+detailedObject.getName());
         username.setText(""+detailedObject.getUsername());
-        Glide.with(this).load("http://www.almerston.com/excalibur/images/"+detailedObject.getImage()).placeholder(R.drawable.buy_icon).crossFade().into(image);
+        Glide.with(this).load("http://www.almerston.com/excalibur/images/"+detailedObject.getImage()+".jpeg").placeholder(R.drawable.buy_icon).crossFade().into(image);
 
     }
 }

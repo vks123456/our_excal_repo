@@ -36,7 +36,7 @@ public class manageAdapter extends RecyclerView.Adapter<manageAdapter.ViewHolder
         holder.price.setText(""+arr.get(position).getPrice());
         holder.pname.setText(""+arr.get(position).getPname());
         holder.seller.setText(""+arr.get(position).getName());
-        Glide.with(c).load("http://www.almerston.com/excalibur/images/"+arr.get(position).getImage()).placeholder(R.drawable.buy_icon).crossFade().into(holder.image);
+        Glide.with(c).load("http://www.almerston.com/excalibur/images/"+arr.get(position).getImage()+".jpeg").placeholder(R.mipmap.app_icon).crossFade().into(holder.image);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
