@@ -31,8 +31,7 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
             startActivity(new Intent(login.this,MainActivity.class));
         }
     }
-
-    @Override
+     @Override
     protected void onRestart() {
         super.onRestart();
         int status = getSharedPreferences("username", MODE_PRIVATE).getInt("loggedIn", 0);
@@ -102,6 +101,10 @@ public class login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         tv_username.setText("");
                     }
                 });
+    }
+    public  void logoff()
+    {
+        signOut();
     }
 
     @Override

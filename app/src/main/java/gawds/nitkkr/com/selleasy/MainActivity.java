@@ -170,6 +170,7 @@ public static GoogleApiClient object;
                 getSharedPreferences("username",MODE_PRIVATE).edit().putInt("loggedIn",0).commit();
                 getSharedPreferences("username",MODE_PRIVATE).edit().putString("email","").commit();
                 getSharedPreferences("username",MODE_PRIVATE).edit().putString("displayname","").commit();
+//                new login().logoff();
                 final Intent i5 = new Intent(this, login.class);
                 startActivity(i5);
                 //finish();
